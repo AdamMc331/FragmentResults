@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FragmentResults</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">Name</string>
+    <string name="finish">Finish</string>
+    <string name="set_name">Set Name</string>
+    <string name="your_name_is">Your name is: %s</string>
+</resources>
