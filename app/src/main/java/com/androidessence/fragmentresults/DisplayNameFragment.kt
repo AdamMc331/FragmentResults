@@ -1,6 +1,7 @@
 package com.androidessence.fragmentresults
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import kotlinx.android.synthetic.main.fragment_main.*
 /**
  * A fragment used for displaying a name. It contains a button which will launch a separate fragment to set the name.
  */
-class DisplayNameFragment : BaseFragment() {
+class DisplayNameFragment : Fragment() {
+
+    private var name: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +30,14 @@ class DisplayNameFragment : BaseFragment() {
     }
 
     /**
-     * Launches a new fragment where the user can set their name. When it returns, their name will be displayed in this
-     * fragment. @see [onActivityResult].
+     * Launches a new fragment where the user can set their name.
      */
     private fun launchSetNameFragment() {
         val newFragment = SetNameFragment()
         val tag = SetNameFragment::class.java.simpleName
-        startFragmentForResult(newFragment, SET_NAME_REQUEST_CODE, tag)
+
+        newFragment.setTargetFragment(this, SET_NAME_REQUEST_CODE)
+        (activity as? MainActivity)?.replace(newFragment, tag)
     }
 
     /**
@@ -42,16 +46,11 @@ class DisplayNameFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        fragmentResult?.let { data ->
-            val requestCode = data.getInt(BaseFragment.REQUEST_CODE)
+        name_textview.text = getString(R.string.your_name_is).format(name)
+    }
 
-            when (requestCode) {
-                SET_NAME_REQUEST_CODE -> {
-                    val name = data.getString(NEW_NAME)
-                    name_textview.text = getString(R.string.your_name_is).format(name)
-                }
-            }
-        }
+    fun setName(name: String) {
+        this.name = name
     }
 
     companion object {
