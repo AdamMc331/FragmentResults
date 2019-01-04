@@ -9,6 +9,8 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  * A fragment used for displaying a name. It contains a button which will launch a separate fragment to set the name.
+ *
+ * @property[name] The name that the user has set to be displayed in this fragment.
  */
 class DisplayNameFragment : Fragment() {
 
@@ -41,7 +43,7 @@ class DisplayNameFragment : Fragment() {
     }
 
     /**
-     * Check if we have a [fragmentResult] and handle accordingly.
+     * Whenever the fragment comes into view, display the [name] that was set.
      */
     override fun onResume() {
         super.onResume()
@@ -55,6 +57,5 @@ class DisplayNameFragment : Fragment() {
 
     companion object {
         const val SET_NAME_REQUEST_CODE = 1
-        const val NEW_NAME = "newName"
     }
 }
