@@ -1,6 +1,7 @@
 package com.androidessence.fragmentresults
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_set_name.*
 /**
  * A placeholder fragment containing a simple view.
  */
-class SetNameFragment : BaseFragment() {
+class SetNameFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,10 +33,7 @@ class SetNameFragment : BaseFragment() {
     private fun returnWithName() {
         val name = name_input.text.toString()
 
-        val data = Bundle().apply {
-            putString(DisplayNameFragment.NEW_NAME, name)
-        }
-
-        setResult(data)
+        (targetFragment as? DisplayNameFragment)?.setName(name)
+        activity?.supportFragmentManager?.popBackStackImmediate()
     }
 }
